@@ -10,10 +10,14 @@
     "type": "git",
     "url": "git+https://github.com/plexuus/group-nodejs-3.git"
   },
-  "author": "tab",
+  "author": "Tab",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/plexuus/group-nodejs-3/issues"
   },
-  "homepage": "https://github.com/plexuus/group-nodejs-3#readme"
+  "homepage": "https://github.com/plexuus/group-nodejs-3#readme",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "pm2": "^4.5.0"
+  }
 }

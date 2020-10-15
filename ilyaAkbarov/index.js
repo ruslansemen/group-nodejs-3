@@ -1,13 +1,11 @@
-const chalk = require('chalk')
+const Message = require('./Classes/Message')
 
 const messages = [
-  { color: 'blue', text: 'test1'},
-  { color: 'green', text: 'test2'},
-  { color: 'red', text: 'test3'},
-  { color: 'yellow', text: 'test4'},
-  { color: 'gray', text: 'test5'},
+  new Message('test1', 'blue'),
+  new Message('test2', 'green'),
+  new Message('test3', 'red'),
+  new Message('test4', 'yellow'),
+  new Message('test5', 'gray'),
 ]
 
-messages.forEach(({ color, text }) => {
-  console.log(chalk[color](text))
-})
+messages.forEach(message => message.showMessage())

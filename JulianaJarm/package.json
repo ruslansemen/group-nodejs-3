@@ -1,0 +1,17 @@
+{
+  "name": "julianajarm",
+  "version": "1.0.0",
+  "description": "node lessons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "julianajarm",
+  "license": "ISC",
+  "dependencies": {
+    "ansi": "^0.3.1",
+    "chalk": "^4.1.0",
+    "pm2": "^4.5.0"
+  }
+}

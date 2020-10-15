@@ -1,0 +1,23 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "node.js geekbrains lessons",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n1tb1/group-nodejs-3.git"
+  },
+  "author": "Andrey Galkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/n1tb1/group-nodejs-3/issues"
+  },
+  "homepage": "https://github.com/n1tb1/group-nodejs-3#readme",
+  "devDependencies": {
+    "beeper": "^2.0.0",
+    "cli-color": "^2.0.0"
+  }
+}

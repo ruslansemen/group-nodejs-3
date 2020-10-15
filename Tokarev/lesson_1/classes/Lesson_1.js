@@ -8,6 +8,6 @@ module.exports = class Lesson_1 {
     }
 
     static run() {
-        console.log(this.print('You run lesson_1 application'));
+        this.print('You run lesson_1 application');
     }
 }

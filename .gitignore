@@ -110,3 +110,4 @@ dist
 # Other
 .DS_Store
 /kozhevnikov/lesson1/package-lock.json
+/kozhevnikov/lesson2/package-lock.json

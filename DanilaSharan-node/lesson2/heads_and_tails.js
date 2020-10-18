@@ -78,12 +78,12 @@ class Game {
   getAnalytic(){
     this.readFile.forEach( (elem) => {
       if(elem.winCount > 0){
-        elem.winrate = Math.floor((elem.winCount/elem.gameCount)*100)
+        elem.winRate = Math.floor((elem.winCount/elem.gameCount)*100)
       } else console.log(this.analytics);
       this.analytics.push([
         elem.winCount,
         elem.gameCount,
-        elem.winrate
+        elem.winRate
       ])
     })
     this.analytics.map((e) => (console.log('Игр :',e[1], 'Побед :', e[0] , 'Результативность :', e[2])))

@@ -23,9 +23,14 @@ const argv = minimistLib(process.argv.slice(2), {
 
 const allowTypes = ["1", "2"]
 
+let maxWins = 0
+let maxLosses = 0
+
 let score = {
   wins: 0,
   looses: 0,
+  winsCombo: 0,
+  lossesCombo: 0,
 }
 
 const hot = (num) => {
@@ -34,19 +39,37 @@ const hot = (num) => {
   } else {
     let qNum = getRandomInt()
     if (argv.file) {
-      fs.writeFileSync(path.join(__dirname, 'logs', argv.file  + '.txt'), '')
+      fs.writeFileSync(path.join(__dirname, 'logsGame', argv.file  + '.txt'), '')
     }
     if (qNum === parseInt(num)) {
       score.wins += 1
-      console.log(`Угадал! \n Побед: ${score.wins}, проигрышей: ${score.looses} \n Попробуй ещё`)
+
+      maxLosses = 0
+      maxWins += 1
+
+      if (maxWins > score.winsCombo) {
+        score.winsCombo = maxWins
+      }
+
+      console.log(`Угадал! \n Побед: ${score.wins}, проигрышей: ${score.looses} \n Серия побед: ${maxWins}  \n Попробуй ещё`)
+
       if (argv.file)
-        fs.writeFileSync(path.join(__dirname, 'logs', argv.file + '.txt'), JSON.stringify(score))
+        fs.writeFileSync(path.join(__dirname, 'logsGame', argv.file + '.txt'), JSON.stringify(score))
       return true
     } else {
       score.looses += 1
-      console.log(`Не угадал! \n Побед: ${score.wins}, проигрышей: ${score.looses} \n Попробуй ещё`)
+
+      maxLosses += 1
+      maxWins = 0
+
+      if (maxLosses > score.lossesCombo) {
+        score.lossesCombo = maxLosses
+      }
+
+      console.log(`Не угадал! \n Побед: ${score.wins}, проигрышей: ${score.looses} \n Серия проигрышей: ${maxLosses} \n Попробуй ещё`)
+
       if (argv.file)
-        fs.writeFileSync(path.join(__dirname, 'logs', argv.file  + '.txt'), JSON.stringify(score))
+        fs.writeFileSync(path.join(__dirname, 'logsGame', argv.file  + '.txt'), JSON.stringify(score))
       return false
     }
   }

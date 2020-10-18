@@ -4,13 +4,13 @@ const path = require('path')
 
 const hotLog = (file) => {
   if (file) {
-    fs.readFile(path.join(__dirname, 'logs', file + '.txt'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, 'logsGame', file + '.txt'), 'utf8', (err, data) => {
       if (err) {
         console.log('Не удалось прочитать файл, проверь имя файла')
         throw err
       }
       let score = JSON.parse(data)
-      console.log(`Партий сыграно: ${score.wins + score.looses} \n Побед: ${score.wins}, проигрышей: ${score.looses}`)
+      console.log(`Партий сыграно: ${score.wins + score.looses} \nПобед: ${score.wins}, проигрышей: ${score.looses}. \nМаксимальная серия побед: ${score.winsCombo}\nМаксимальная серия поражений: ${score.lossesCombo} \nВсего очков: ${score.wins - score.looses}. Процент побед: ${Math.round((score.wins / (score.looses + score.wins )) * 100)}`)
     })
 
   } else {

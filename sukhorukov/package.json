@@ -12,6 +12,7 @@
   "author": "Sukhorukov Ruslan <suhrugen@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "console-input": "^1.0.2"
+    "console-input": "^1.0.2",
+    "minimist": "^1.2.5"
   }
 }

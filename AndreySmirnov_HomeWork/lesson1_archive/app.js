@@ -1,6 +1,6 @@
-const chalk = require('chalk');
-const log = console.log;
-const beeper = require('beeper');
+const chalk = require('chalk')
+const log = console.log
+const beeper = require('beeper')
 
 module.exports = calc = (value) => {
     log(chalk.blue('calculation...'))

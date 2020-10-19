@@ -20,5 +20,5 @@ const fallsRatio =  Math.floor(falls.length / statData.length * 100)
 
 console.log("\033[2J\033[0f")
 console.log('Общее количество партий: ', statData.length)
-console.log(`Выиграно / проиграно партий: ${wins.length} / ${falls.length}`)
-console.log(`Процентное соотношение выиграных / проиграных партий: ${winRatio}% / ${fallsRatio}% (от ${statData.length} сыгранных)\n`)
+console.log(`Выиграно/проиграно партий: ${wins.length}/${falls.length}`)
+console.log(`Процентное соотношение выиграных/проиграных партий: ${winRatio}%/${fallsRatio}% (от ${statData.length} сыгранных)\n`)

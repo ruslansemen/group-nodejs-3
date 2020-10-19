@@ -1,0 +1,7 @@
+{
+  "name": "lesson_2",
+  "version": "1.0.0",
+  "dependencies": {
+    "minimist": "^1.2.5"
+  }
+}

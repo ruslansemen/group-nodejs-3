@@ -17,14 +17,6 @@ const statData = JSON.parse(fs.readFileSync(path.join(__dirname, argv.log), 'utf
 const wins  = statData.filter((item) => item.win === true)
 const falls  = statData.filter((item) => item.win !== true)
 
-const maxWins = wins.reduce((prev, current) => (current.attempt - prev.attempt)  === 1 ? prev : [...prev, current], [])
-
-
 console.log("\033[2J\033[0f")
 console.log('Общее количество партий: ', statData.length)
-console.log(`Выиграно/проиграно партий: ${wins.length}/${falls.length}`)
-
-console.log(statData)
-console.log(wins)
-console.log(falls)
-console.log(maxWins)
+console.log(`Выиграно/проиграно партий: ${wins.length}/${falls.length}\n`)

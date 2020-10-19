@@ -15,7 +15,7 @@ const argv = minimist(process.argv.slice(2), {
 
 const rl = readline.createInterface({
     input: process.stdin,
-    output: process.output,
+    output: process.output
 })
 
 let logData = []

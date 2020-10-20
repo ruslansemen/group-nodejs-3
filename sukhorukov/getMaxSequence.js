@@ -1,4 +1,4 @@
-maxSequence = (arr, win) => {
+getMaxSequence = (arr, win) => {
     let sequence = []
     let count = 0
 
@@ -23,4 +23,4 @@ maxSequence = (arr, win) => {
     return Math.max(...sequence)
 }
 
-module.exports = maxSequence
+module.exports = getMaxSequence

@@ -1,7 +1,7 @@
 const minimist = require('minimist')
 const fs = require('fs')
 const path = require('path')
-const maxSequence = require('./maxSequenceCalc.js')
+const getMaxSequence = require('./getMaxSequence.js')
 
 const argv = minimist(process.argv.slice(2), {
     default: {
@@ -23,4 +23,4 @@ console.log("\033[2J\033[0f")
 console.log('Общее количество партий: ', statData.length)
 console.log(`Выиграно/проиграно партий: ${wins.length}/${falls.length}`)
 console.log(`Процентное соотношение выиграных/проиграных партий: ${winsRatio}%/${fallsRatio}% (от ${statData.length} сыгранных)`)
-console.log(`Максимальное число побед/проигрышей подряд: ${maxSequence(statData, true)}/${maxSequence(statData, false)}\n`)
+console.log(`Максимальное число побед/проигрышей подряд: ${getMaxSequence(statData, true)}/${getMaxSequence(statData, false)}\n`)

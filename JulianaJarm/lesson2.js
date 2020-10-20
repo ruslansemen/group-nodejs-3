@@ -17,21 +17,23 @@ function play(fileName) {
             let win = false
             if (guess === result) {
                 win = true
-                console.log('You win! :D')
+                console.log(chalk.bgGreen.black('You win! :D'))
             } else {
-                console.log('You lose :(')
+                console.log(chalk.bgMagenta.black('You lose :('))
             }
             fs.appendFile(`${fileName}`, JSON.stringify(`${guess}: ${win},`), (error) => {
                 if(error) throw new Error;
             })
 
         } else {
-            console.log('Wrong input. You need to enter 1 or 2')
+            console.log(chalk.bgRed.black('Wrong input. You need to enter 1 or 2'))
         }
     })
 }
 
 play('gameLog.json');
+
+
 
 
 

@@ -1,5 +1,6 @@
 const request = require('request')
 const cheerio = require('cheerio')
+const format = require('date-format')
 const {clear} = require('console')
 const {log} = require('console')
 const {table} = require('console')
@@ -23,7 +24,7 @@ request('https://distrowatch.com/', (err, response, body) => {
         }  
 
         clear()
-        log('\n OS TOP10 on', new Date().toLocaleDateString())
+        log('\n OS TOP10 on', format('dd.MM.yyyy', new Date()))
 
         table(top)
     } else {

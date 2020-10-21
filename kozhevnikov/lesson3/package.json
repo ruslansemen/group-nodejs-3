@@ -2,7 +2,7 @@
   "name": "lesson3",
   "version": "1.0.0",
   "description": "",
-  "main": "lesson3.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,9 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "fs": "0.0.1-security",
-    "needle": "^2.5.2",
-    "request": "^2.88.2",
-    "tress": "^1.1.4"
+    "nodemailer": "^6.4.14",
+    "puppeteer": "^5.3.1",
+    "request": "^2.88.2"
   }
 }

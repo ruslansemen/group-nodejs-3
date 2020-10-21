@@ -1,6 +1,6 @@
 const translate = require('google-translate-open-api').default
 
-const enRuEn = async (text) => {
+const translator = async (text) => {
     const russianLetters = /[а-яё]/i
     const to = russianLetters.test(text) ? "en" : 'ru'
   
@@ -12,4 +12,4 @@ const enRuEn = async (text) => {
     return {original: text, translated: result.data[0]}
 }
 
-module.exports = enRuEn
+module.exports = translator

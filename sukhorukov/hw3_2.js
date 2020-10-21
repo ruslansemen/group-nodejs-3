@@ -1,7 +1,7 @@
 const readline = require('readline')
 const {clear} = require('console')
 const {log} = require('console')
-const enRuEn = require('./enruen')
+const translator = require('./translator')
 
 const rl = readline.createInterface({
    input: process.stdin,
@@ -18,7 +18,7 @@ rl.on('line', (cmd) => {
    } else {
       clear()
       log('please wait ...')
-      enRuEn(cmd)
+      translator(cmd)
          .then(data => {
             clear()
             log(`Оригинальный текст:\t${data.original}\nПеревод:\t\t${data.translated}\n`)

@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^4.1.0"
+    "@vitalets/google-translate-api": "^4.0.0",
+    "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "request": "^2.88.2"
   }
 }

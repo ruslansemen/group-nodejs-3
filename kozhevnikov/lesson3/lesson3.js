@@ -1,7 +1,8 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs')
 
 let scrape = async () => {
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
 
     await page.goto('https://rossaprimavera.ru/feed/news/');
@@ -26,4 +27,6 @@ let scrape = async () => {
 
 scrape().then((value) => {
     console.log(value);
+    fs.writeFileSync('./news.json', JSON.stringify(value, null, 4));
+
 });

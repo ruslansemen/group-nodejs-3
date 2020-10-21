@@ -1,8 +1,11 @@
 const request = require('request')
 const cheerio = require('cheerio')
+const {clear} = require('console')
+const {log} = require('console')
+const {table} = require('console')
 
-console.clear()
-console.log('\nplease, wait ...\n')
+clear()
+log('\nplease, wait ...\n')
 
 request('https://distrowatch.com/', (err, response, body) => {
     if(!err && response.statusCode === 200) {
@@ -11,16 +14,19 @@ request('https://distrowatch.com/', (err, response, body) => {
         
         for (let i=0; i<10; i++) {  
             const line = {}
+
             line.place = +$('.phr1').eq(i).text()
             line.name = $('.phr2').eq(i).text()
             line.loadsPerDay = +$('.phr3').eq(i).text()
+
             top[i] = line
         }  
 
-        console.clear()
-        console.log('\n OS TOP10 on', new Date().toLocaleDateString())
-        console.table(top)
+        clear()
+        log('\n OS TOP10 on', new Date().toLocaleDateString())
+        
+        table(top)
     } else {
-        console.log('error: ', err);
+        log('error: ', err)
     }
 })

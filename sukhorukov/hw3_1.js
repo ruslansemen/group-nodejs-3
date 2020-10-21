@@ -8,7 +8,7 @@ clear()
 log('\nplease, wait ...\n')
 
 request('https://distrowatch.com/', (err, response, body) => {
-    if(!err && response.statusCode === 200) {
+    if (!err && response.statusCode === 200) {
         const $ = cheerio.load(body)        
         const top = []
         
@@ -24,7 +24,7 @@ request('https://distrowatch.com/', (err, response, body) => {
 
         clear()
         log('\n OS TOP10 on', new Date().toLocaleDateString())
-        
+
         table(top)
     } else {
         log('error: ', err)

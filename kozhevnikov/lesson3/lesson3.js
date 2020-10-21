@@ -4,7 +4,7 @@ const cheerio = require('cheerio');
 const resolve = require('url').resolve;
 const fs = require('fs');
 
-const URL = 'http://www.ferra.ru/ru/techlife/news/';
+const URL = 'https://rossaprimavera.ru/feed/news';
 const results = [];
 
 const q = tress(function(url, callback){

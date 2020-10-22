@@ -12,7 +12,8 @@ function colorize(text, count) {
     let randomColor = colors[number];
     log(randomColor(`${text}`));
     setTimeout(() => {
-        colorize(text, count - 1)
+        colorize(text, count - 1);
+        console.clear();
     }, 1000);
 }
 

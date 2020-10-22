@@ -1,42 +1,23 @@
-var tress = require('tress');
-var needle = require('needle');
-var cheerio = require('cheerio');
-var resolve = require('url').resolve;
-var fs = require('fs');
+const translate = require('@vitalets/google-translate-api');
+const readlineSync = require('readline-sync');
 
-var URL = 'https://rossaprimavera.ru/feed/news/';
-var results = [];
+const translator = async () => {
+    while (true) {
+        input = readlineSync.question(' Enter the text in English : ');
+        // console.log(' Вы ввели ', input);
 
-var q = tress(function(url, callback){
-    needle.get(url, function(err, res){
-        if (err) throw err;
-
-        var $ = cheerio.load(res.body);
-
-        if($('.text')){
-            results.push({
-                title: $('h1').text(),
-                date: $('.b_infopost>.date').text(),
-                href: url,
-                size: $('.newsbody').text().length
+        await translate(input, {to: 'ru'})
+            .then(res => {
+                console.log(res.text);
+            })
+            .catch(err => {
+                console.error(err);
             });
+        boolYes = readlineSync.keyInYNStrict([' Continue? ']);
+        if (!boolYes) {
+            console.log('\x1Bc' + ' До свидания!');
+            break;
         }
-
-        $('.b_rewiev p>a').each(function() {
-            q.push($(this).attr('href'));
-        });
-
-        $('.bpr_next>a').each(function() {
-            q.push(resolve(URL, $(this).attr('href')));
-        });
-
-        callback();
-    });
-}, 10);
-
-q.drain = function(){
-    console.log(JSON.stringify(results, null, 4))
-    fs.writeFileSync('./data.json', JSON.stringify(results, null, 4));
+    }
 }
-
-q.push(URL);
+translator();

@@ -1,15 +1,17 @@
 const request = require('request')
 const cheerio = require('cheerio')
+const chalk = require('chalk')
 
 request('http://www.etotupo.ru/', (err, response, body) => {
     if(!err && response.statusCode === 200) {
         const $ = cheerio.load(body)
-        const news = $('h3.elementor-post__title').text()
-        console.log(`news: ${news}`)
+
+        const news = $('h3.elementor-post__title').slice(0,4).text()
+
+        console.log(chalk.magenta(`Горячие новости:${news}`))
     }
 })
 
-//elementor-post__title
 /*
 1) Создать программу для получения информации о последних
 новостей с выбранного вами сайта в структурированном виде.

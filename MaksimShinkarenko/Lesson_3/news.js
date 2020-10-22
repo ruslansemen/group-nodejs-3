@@ -8,14 +8,17 @@ fetch('https://yandex.ru/news')
 
     const newsRow = $('.news-card')
     const newsArr= []
+    let id = 0
 
     for (let el in newsRow) {
       if (newsRow[el].name === 'article') {
         newsArr.push({
+          id: id,
           header: $(newsRow[el]).find('.news-card__link').text(),
           url: $(newsRow[el]).find('.news-card__link').attr('href'),
           desc: $(newsRow[el]).find('.news-card__annotation').text(),
         })
+        id++
       }
     }
 

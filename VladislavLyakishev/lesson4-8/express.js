@@ -38,30 +38,14 @@ app.get('/', (req, res) => {
     })
     if (params.lang !== 'ru'){
         google(newsCount, {from: 'ru', to: params.lang}).then(newsCount => {
-            res.render(
-                'index', 
-                {
-                    date, 
-                    selectCount, 
-                    selectLang, 
-                    newsCount,
-                    helpers: {
-                        selectedCount: function (v1){
-                            if (v1 === +params.count) {
-                                return 'selected'
-                            }
-                        },
-                        selectedLang: function (v1) {
-                            if (v1 === params.lang){
-                                return 'selected'
-                            }
-                        }
-                    }
-                })
+            customRender(newsCount)
         }).catch(err => {
             console.error(err)
         })
     } else {
+        customRender(newsCount)
+    }
+    function customRender (newsCount) {
         res.render(
             'index', 
             {

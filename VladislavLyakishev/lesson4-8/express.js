@@ -11,6 +11,7 @@ const newsArr = require('./module/parser')
 
 const app = express()
 
+
 //Middleware
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: false}))
@@ -21,7 +22,7 @@ app.engine('hbs', hbs({
     extname: 'hbs',
     defaultLayout: 'default',
     layoutsDir: path.join( __dirname, 'views', 'layouts'),
-    partialsDir: path.join( __dirname, 'views', 'partials')
+    partialsDir: path.join( __dirname, 'views', 'partials'),
 }))
 // App Set
 app.set('view engine', 'hbs')
@@ -35,11 +36,53 @@ app.get('/', (req, res) => {
             newsCount.push(elem)
         }
     })
-    google(newsCount, {from: 'ru', to: params.lang}).then(newsCount => {
-        res.render('index', {date, selectCount, selectLang, newsCount})
-    }).catch(err => {
-        console.error(err)
-    })
+    if (params.lang !== 'ru'){
+        google(newsCount, {from: 'ru', to: params.lang}).then(newsCount => {
+            res.render(
+                'index', 
+                {
+                    date, 
+                    selectCount, 
+                    selectLang, 
+                    newsCount,
+                    helpers: {
+                        selectedCount: function (v1){
+                            if (v1 === +params.count) {
+                                return 'selected'
+                            }
+                        },
+                        selectedLang: function (v1) {
+                            if (v1 === params.lang){
+                                return 'selected'
+                            }
+                        }
+                    }
+                })
+        }).catch(err => {
+            console.error(err)
+        })
+    } else {
+        res.render(
+            'index', 
+            {
+                date, 
+                selectCount, 
+                selectLang, 
+                newsCount,
+                helpers: {
+                    selectedCount: function (v1){
+                        if (v1 === +params.count) {
+                            return 'selected'
+                        }
+                    },
+                    selectedLang: function (v1) {
+                        if (v1 === params.lang){
+                            return 'selected'
+                        }
+                    }
+                }
+            })
+    }
     
 })
 

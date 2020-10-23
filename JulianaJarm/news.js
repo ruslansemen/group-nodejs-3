@@ -6,16 +6,11 @@ request('http://www.etotupo.ru/', (err, response, body) => {
     if(!err && response.statusCode === 200) {
         const $ = cheerio.load(body)
 
-        const news = $('h3.elementor-post__title').slice(0,4).text()
+        const news = $('div.elementor-post__excerpt').slice(0, 4).contents().text()
 
         console.log(chalk.magenta(`Горячие новости:${news}`))
     }
 })
 
-/*
-1) Создать программу для получения информации о последних
-новостей с выбранного вами сайта в структурированном виде.
-2) Создать переводчик слов с английского на русский, который будет
-обрабатывать входящие GET запросы и возвращать ответы,
-полученные через API Яндекс.Переводчика.
- */
+
+

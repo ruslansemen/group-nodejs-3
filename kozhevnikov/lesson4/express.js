@@ -1,6 +1,6 @@
 const express = require('express')
 const hbs = require('express-handlebars')
-const path = require('path ')
+const path = require('path')
 
 
 const app = express()
@@ -10,8 +10,8 @@ app.use(express.json())
 app.engine('hbs', hbs({
     extname: 'hbs',
     defaultLayout: 'default',
-    layoutsDir: path.json(__dirname, 'views', 'layouts'),
-    partialsDir: path.json(__dirname, 'views', 'partials'),
+    layoutsDir: path.join(__dirname, 'views', 'layouts'),
+    partialsDir: path.join(__dirname, 'views', 'partials'),
 }))
 app.set('view enjine', 'hbs')
 

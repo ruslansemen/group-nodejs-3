@@ -1,0 +1,15 @@
+:root {
+    --container-width: 800px;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.action-form {
+    margin: 0 auto;
+}

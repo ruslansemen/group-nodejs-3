@@ -2,6 +2,7 @@ const express = require('express')
 const hbs = require('express-handlebars')
 const path = require('path')
 const cookieParser = require('cookie-parser')
+const google = require('translate-google')
 //MyModul
 const selectCount = require('./db/selectCount')
 const selectLang = require('./db/selectLang')
@@ -28,13 +29,18 @@ app.set('view engine', 'hbs')
 app.get('/', (req, res) => {
     const params = req.cookies.params ? req.cookies.params : {count: 5000000, lang: 'ru'}
     const date = (new Date).toLocaleDateString()
-    const newsCount = []
+    let newsCount = []
     newsArr.forEach( (elem, i) => {
         if (i < params.count) {
             newsCount.push(elem)
         }
     })
-    res.render('index', {date, params, selectCount, selectLang, newsCount})
+    google(newsCount, {from: 'ru', to: params.lang}).then(newsCount => {
+        res.render('index', {date, selectCount, selectLang, newsCount})
+    }).catch(err => {
+        console.error(err)
+    })
+    
 })
 
 app.post('/', (req, res) => {

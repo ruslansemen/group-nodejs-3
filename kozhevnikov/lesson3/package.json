@@ -12,5 +12,8 @@
   "dependencies": {
     "@vitalets/google-translate-api": "^4.0.0",
     "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "puppeteer": "^5.4.0"
   }
 }

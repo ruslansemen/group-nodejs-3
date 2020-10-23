@@ -1,7 +1,7 @@
 const request = require('request')
 const convert = require('xml-js')
-const chalk   = require('chalk');
-const moment  = require('moment');
+const chalk   = require('chalk')
+const moment  = require('moment')
 
 var channelName
 var news
@@ -13,9 +13,9 @@ function getNews() {
         form:{key: 'value'},
     }, function (error, response, body) {
         if (error) {
-            console.error(error);
+            console.error(error)
         } else {
-            let result = JSON.parse(convert.xml2json(body, {compact: true, spaces: 4}));
+            let result = JSON.parse(convert.xml2json(body, {compact: true, spaces: 4}))
             channelName = result.rss.channel.title._text
             news = result.rss.channel.item
             showNews()

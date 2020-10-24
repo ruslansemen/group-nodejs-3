@@ -1,50 +1,85 @@
 const express = require('express')
 const hbs = require('express-handlebars')
+const request = require('request')
+const cheerio = require('cheerio')
+const format = require('date-format')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-const users = require('./data/users')
 
 const app = express()
 
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static('public'))
 
-app.engine('hbs', hbs({
+app.engine(
+  'hbs',
+  hbs({
     extname: 'hbs',
     defaultLayout: 'default',
     layoutsDir: path.join(__dirname, 'views', 'layouts'),
     partialsDir: path.join(__dirname, 'views', 'partials'),
-}))
+  })
+)
 app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-  res.status(200).send('Hello, express.js!')
+  res.redirect(`/1`)
 })
 
-app.get('/users', (req, res) => {
-  res.render('users', {users})
+app.get('/:isTop', (req, res) => {
+  const isTopCookies = Boolean(+req.cookies.isTopCookies)
+  const isTop = Boolean(+req.params.isTop)
+
+  const parser = new Promise((resolve, reject) => {
+    request('https://distrowatch.com/', (err, response, body) => {
+      if (!err && response.statusCode === 200) {        
+        resolve(cheerio.load(body))
+      } else {
+        reject(err)
+      }
+    })
+  })
+  
+  parser
+    .then($ => {
+      const top = []
+      let parsedData = {}
+  
+      for (let i = 0; i < 10; i++) {
+        const index = isTop ? i : 99 - i
+        const line = {}
+        
+        line.line = i + 1
+        line.place = +$('.phr1').eq(index).text()
+        line.name = $('.phr2').eq(index).text()
+        line.loadsPerDay = +$('.phr3').eq(index).text()
+
+        top[i] = line
+      }
+
+      parsedData = {
+        top,
+        isTop,
+        isTopCookies,
+        date: format('dd.MM.yyyy', new Date())
+      }
+
+      res.render('list', {parsedData})
+    })
+    .catch(err => console.log(`Error: `, err))
 })
 
-app.post('/users', (req, res) => {
-  console.log(req.body.a)
-   res.status(200).send(`Ответ на post-запрос: ${req.body.a}`)
+app.post('/', (req, res) => {
+  const {isTop} = req.body
+  res.cookie('isTopCookies', isTop)
+  res.redirect(`/${isTop}`)
 })
 
-app.get('/users/:username', (req, res) => {
-  const {username} = req.params
-
-  const user = users[username]
-
-  if(!user){
-      res.status(404).render('error')
-  }
-
-  res.render('user', {user})
+app.get('*', (req, res) => {
+  res.status(404).render('error')
 })
-
-
 
 app.listen(4000, () => {
   console.log('сервер: http://localhost:4000')

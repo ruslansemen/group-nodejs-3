@@ -25,14 +25,10 @@ app.engine(
 app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-  res.redirect(`/1`)
-})
+  let {isTopCookies} = req.cookies
+  isTopCookies = isTopCookies ? +isTopCookies : 1
 
-app.get('/:isTop', (req, res) => {
-  const isTopCookies = Boolean(+req.cookies.isTopCookies)
-  const isTop = Boolean(+req.params.isTop)
-
-  const parser = new Promise((resolve, reject) => {
+  const distroParser = new Promise((resolve, reject) => {
     request('https://distrowatch.com/', (err, response, body) => {
       if (!err && response.statusCode === 200) {        
         resolve(cheerio.load(body))
@@ -42,39 +38,38 @@ app.get('/:isTop', (req, res) => {
     })
   })
   
-  parser
+  distroParser
     .then($ => {
       const top = []
-      let parsedData = {}
-  
+        
       for (let i = 0; i < 10; i++) {
-        const index = isTop ? i : 99 - i
+        const index = isTopCookies ? i : 99 - i
         const line = {}
         
         line.line = i + 1
-        line.place = +$('.phr1').eq(index).text()
+        line.place = $('.phr1').eq(index).text()
         line.name = $('.phr2').eq(index).text()
-        line.loadsPerDay = +$('.phr3').eq(index).text()
+        line.loadsPerDay = $('.phr3').eq(index).text()
 
         top[i] = line
       }
 
-      parsedData = {
+      const parsedData = {
         top,
-        isTop,
         isTopCookies,
         date: format('dd.MM.yyyy', new Date())
       }
 
       res.render('list', {parsedData})
     })
+    
     .catch(err => console.log(`Error: `, err))
 })
 
 app.post('/', (req, res) => {
   const {isTop} = req.body
-  res.cookie('isTopCookies', isTop)
-  res.redirect(`/${isTop}`)
+  res.cookie('isTopCookies', +isTop)
+  res.redirect('/')
 })
 
 app.get('*', (req, res) => {

@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "node-fetch": "^2.6.1",
     "pm2": "^4.5.0"
   },
   "devDependencies": {}

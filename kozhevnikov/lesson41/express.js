@@ -8,10 +8,8 @@ const links = require('./data/links')
 
 const app = express()
 
-// app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use(cookieParser())
-// app.use(express.static('public'))
 
 app.engine('hbs', hbs({
     extname: 'hbs',
@@ -30,25 +28,14 @@ app.get('/links', (req, res) => {
     } else {
         console.log('Заголовок test не был передан')
     }
-    // res.status(200).send('Users!')
-
     res.render('links', {links})
 })
 
-// app.get('/links/rossaprimavera',(req,res) => {
-//     console.log('LOG')
-//     scrape()
-//         .then((data) => {
-//             console.log(data)
-//             res.render('link', {data})
-//         })
-//         .catch((err) => {console.log(err)
-//             res.render('error')})
-// })
 
 app.get('/links/:mediaName', (req, res) => {
     const mediaName = req.params.mediaName
-    res.render('config', {mediaName: mediaName, url: `/links/${mediaName}/result`})
+    const newsCount = req.cookies.newsCount || req.query.count || 1
+    res.render('config', {mediaName: mediaName, url: `/links/${mediaName}/result`, newsCount})
 })
 
 app.post('/links/:mediaName/result', (req, res) => {
@@ -62,6 +49,7 @@ app.post('/links/:mediaName/result', (req, res) => {
     }))
         .then((data) => {
             console.log(data)
+            res.cookie('newsCount', newsCount)
             return res.render('news', {data: data})
         })
         .catch((ERR) => console.log(ERR))
@@ -73,20 +61,11 @@ app.get('/cookie/get', (req, res) => {
 })
 
 app.get('/cookie/set', (req, res) => {
-    res.cookie('count', Math.floor(Math.random() * 10))
+    const {newsCount} = req.body
+    res.cookie('count', newsCount)
     res.redirect('/cookie/get')
 })
 
-// app.post('/links/rossaprimavera', (req, res) => {
-//     console.log(req.body)
-//     res.status(200).send('Post!')
-//     res.render('link', {data})
-// })
-
-// app.post('/links', (req, res) => {
-//     console.log(req.body)
-//     res.status(200).send('Post!')
-// })
 
 app.listen(4000, () => {
     console.log('http://localhost:4000')

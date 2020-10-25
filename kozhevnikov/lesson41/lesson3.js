@@ -1,11 +1,11 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs')
 
-const scrape = async () => {
+const scrape = async (media) => {
     const browser = await puppeteer.launch({headless: true});
     const page = await browser.newPage();
 
-    await page.goto('https://rossaprimavera.ru/feed/news/');
+    await page.goto(`https://${media}.ru/feed/news/`);
 
     const result = await page.evaluate(() => {
         let data = [];

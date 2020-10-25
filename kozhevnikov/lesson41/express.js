@@ -65,8 +65,6 @@ app.post('/links/:mediaName/result', (req, res) => {
             return res.render('news', {data: data})
         })
         .catch((ERR) => console.log(ERR))
-
-
 })
 
 app.get('/cookie/get', (req, res) => {

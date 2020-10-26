@@ -6,9 +6,11 @@ const courses = require('./src/getCourses')
 const news = require('./src/getNews')
 const bodyParser = require('body-parser')
 const app = express()
+const cookieParser = require('cookie-parser')
 
-
+app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'src')))
+// не работает,  express.urlencoded тоже неработает
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -29,12 +31,26 @@ app.get('/', async (req, res) => {
 })
 app.get('/news', async (req, res) => {
   let n = await news()
-  res.render('news', { n, title: 'Главные новосмти с сайта lenta.ru' })
+  let max = n.length
+  let arrNews = []
+  let current = arrNews.length || 1
+  n.forEach((e, i) => {
+    i < +req.cookies.number && arrNews.push(e)
+  })
+  console.log(arrNews)
+  res.render('news', {
+    arrNews,
+    max,
+    current,
+    title: 'Главные новости с сайта lenta.ru',
+  })
 })
 
-app.post('/namberNews', (req, res) => {
-  console.log(req.body)
-  res.json({ result: 'ok' })
+app.post('/namberNews/:number', (req, res) => {
+  //выдает пустое боди
+  //console.log(req.body)
+  res.cookie('number', req.params.number)
+  res.json({ result: true })
 })
 
 app.get('*', async (req, res) => {

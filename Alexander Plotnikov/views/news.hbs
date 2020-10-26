@@ -1,0 +1,39 @@
+<div class = "cont">
+<form id="form">
+    <label for="number">Укажите количество новстей котрое вы хотите увидеть!(максимум 6)</label>
+    <input type="number" id="number" name = "number" maxlength="1" max="6" min="1" >
+    <button type="submit"> Показать заданное количество новостей </button>
+</form>
+{{#each n}}
+<a class="course" href = "{{this.link}}" target="_blank">
+    <div class="img">
+        <p>{{this.title}}</p>
+    </div>
+</a>
+   
+{{/each}}
+    
+</div>
+
+
+<script> 
+let input = document.querySelector('#number')
+let form = document.querySelector('#form')
+let button = document.querySelector('#form > button')
+
+form.addEventListener('submit',async (e)=> {
+    e.preventDefault()
+    console.log(new FormData(form))
+    let res = await fetch('http://localhost:8001/namberNews',{
+        method:'POST',
+        body: new FormData(form)
+    })
+    let { result } = await res.json()
+    console.log(result)
+
+
+})
+
+
+
+</script>

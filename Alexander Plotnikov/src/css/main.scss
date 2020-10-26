@@ -5,12 +5,26 @@ body {
 .cont {
   display: flex;
   flex-direction: column;
+  & > #form {
+    display: flex;
+    margin: 0 auto;
+    & > label {
+      font-size: 1.2rem;
+    }
+    margin-bottom: 30px;
+    & > input {
+      display: flex;
+      width: 50px;
+      outline: none;
+    }
+  }
 }
 .course {
   text-decoration: none;
+  width: 50%;
+  margin: 0 auto;
 }
 .img {
-  width: 50%;
   height: 80px;
   display: flex;
   justify-content: flex-start;

@@ -12,12 +12,33 @@ body {
           flex-direction: column;
 }
 
+.cont > #form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.cont > #form > label {
+  font-size: 1.2rem;
+}
+
+.cont > #form > input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50px;
+  outline: none;
+}
+
 .course {
   text-decoration: none;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .img {
-  width: 50%;
   height: 80px;
   display: -webkit-box;
   display: -ms-flexbox;

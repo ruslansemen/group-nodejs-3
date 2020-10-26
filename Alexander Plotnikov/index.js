@@ -2,10 +2,15 @@ const PORT = 8001
 const path = require('path')
 const express = require('express')
 const exphbs = require('express-handlebars')
-const app = express()
 const courses = require('./src/getCourses')
+const news = require('./src/getNews')
+const bodyParser = require('body-parser')
+const app = express()
 
-app.use(express.static(path.join(__dirname,'src')))
+
+app.use(express.static(path.join(__dirname, 'src')))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.engine(
   '.hbs',
@@ -20,6 +25,19 @@ app.set('view engine', '.hbs')
 
 app.get('/', async (req, res) => {
   let c = await courses()
-  res.render('courses',{c})
+  res.render('courses', { c, title: 'Список курсов GeekBrains' })
+})
+app.get('/news', async (req, res) => {
+  let n = await news()
+  res.render('news', { n, title: 'Главные новосмти с сайта lenta.ru' })
+})
+
+app.post('/namberNews', (req, res) => {
+  console.log(req.body)
+  res.json({ result: 'ok' })
+})
+
+app.get('*', async (req, res) => {
+  res.render('error')
 })
 app.listen(PORT, () => console.log(`http://localhost:${PORT}`))

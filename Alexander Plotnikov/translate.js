@@ -1,28 +1,13 @@
-const translate = require('@vitalets/google-translate-api')
-const readline = require('readline')
-const chalk = require('chalk')
+const request = require('request')
+const cheerio = require('cheerio')
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
+request('https://www.banki.ru/products/currency/', (err, response, body) => {
+    if(!err && response.statusCode === 200){
+        console.log('Все данные успешно получены!')
+        const $ = cheerio.load(body)
 
-console.log(
-  chalk.green("Input word ot expration to translate or 'exit' to exit")
-)
-
-rl.on('line', async (input) => {
-  if (input === 'exit') {
-    rl.close()
-  } else {
-    try {
-      let res = await translate(input, { from: 'en', to: 'ru' })
-      console.log(chalk.yellow(res.text))
-      console.log(
-        chalk.green("Input word ot expration to translate or 'exit' to exit")
-      )
-    } catch (e) {
-      console.log(e)
+        //const usdData = $('.cb-current-rates__list__item').eq(0).find('td').eq(1).text()
+        const usdData = $('tr[data-currency-code="USD"]').find('td').eq(1).text()
+        console.log(`Курс USD: ${usdData}`)
     }
-  }
 })

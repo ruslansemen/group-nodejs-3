@@ -1,49 +1,20 @@
-const readline = require('readline')
-const path = require('path')
-const {readStatistic, writeStatistic} = require('./statistic')
+const fetch = require('node-fetch')
+const cheerio = require('cheerio')
 
-const commands = ['1', '2']
-const exitCommands = ['e', 'exit']
-const results = {
-  1: 'Орел',
-  2: 'Решка'
-}
-const messages = {
-  start: 'Орел или решка. Орел = 1, решка = 2',
-  wrongInput: 'Введите число. Орел = 1, решка = 2. Чтобы выйти введите "exit" или "e"',
-  wrongAnswer: result => `Не угадал. Правильный ответ ${result}`,
-  rightAnswer: 'Угадал',
+const fetchData = async (url) => {
+  try {
+    const response = await fetch(url)
+    return await response.text()
+  } catch (error) {
+    console.log('error: ', error)
+  }
 }
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-})
-
-console.log(messages.start)
-
-rl.on('line', cmd => {
-  const statistic = readStatistic(path.resolve(__dirname, 'statistic.json'))
-  if (exitCommands.includes(cmd)){
-    rl.close()
-  }
-  
-  if (cmd === 'stats') {
-    console.log(statistic)
-    return
-  }
-  
-  if (!commands.includes(cmd)) {
-    console.log(messages.wrongInput)
-    return
-  }
-  
-  const resultKey = Math.ceil(Math.random() * 2)
-  const isWin = resultKey === +cmd
-  if (isWin) {
-    console.log(messages.rightAnswer)
-  } else {
-    console.log(messages.wrongAnswer(results[resultKey]))
-  }
-  writeStatistic(statistic, path.resolve(__dirname, 'statistic.json'), isWin)
+fetchData('https://ria.ru/world/').then(body => {
+  const $ = cheerio.load(body)
+  $('.rubric-list').find('.list-item').map(function() {
+    const title = $(this).find('.list-item__title').text()
+    console.log(title)
+    console.log('-------------------------------------')
+  })
 })

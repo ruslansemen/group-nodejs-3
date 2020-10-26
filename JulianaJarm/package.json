@@ -10,8 +10,18 @@
   "author": "julianajarm",
   "license": "ISC",
   "dependencies": {
+    "@vitalets/google-translate-api": "^4.0.0",
     "ansi": "^0.3.1",
     "chalk": "^4.1.0",
-    "pm2": "^4.5.0"
+    "cheerio": "^1.0.0-rc.3",
+    "minimist": "^1.2.5",
+    "nodemailer": "^6.4.14",
+    "pm2": "^4.5.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "~/WebstormProjects/group-nodejs-3"
   }
 }

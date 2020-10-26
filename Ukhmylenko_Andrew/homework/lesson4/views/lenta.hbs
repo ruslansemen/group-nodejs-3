@@ -1,0 +1,19 @@
+<div>
+    <h1>Главная новости с сайта Lenta.ru</h1>
+    <form method="POST" action="/lenta">
+        <label for="text">Количество отображаемых новостей:</label>
+        <input type="text" name="param1" placeholder="Введите число" id="text">
+        <input type="submit" value="Отобразить">
+    </form>
+
+    <ol>
+        {{#each mainNewsContainer}}
+        <li>
+            <a href="https://lenta.ru{{this.link}}" target="_blank">
+                {{this.text}}
+            </a>
+        </li>
+        {{/each}}
+
+    </ol>
+</div>

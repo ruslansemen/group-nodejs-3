@@ -19,18 +19,18 @@ app.engine('hbs', hbs({
 app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-    res.status(200).send('Hello, express.js!')
+    // res.status(200).send('Hello, express.js!')
+    res.redirect('/links')
 })
 
 app.get('/links', (req, res) => {
     if (req.test) {
         console.log(req.test)
     } else {
-        console.log('Заголовок test не был передан')
+        // console.log('Заголовок test не был передан')
     }
     res.render('links', {links})
 })
-
 
 app.get('/links/:mediaName', (req, res) => {
     const mediaName = req.params.mediaName
@@ -54,17 +54,6 @@ app.post('/links/:mediaName/result', (req, res) => {
         })
         .catch((ERR) => console.log(ERR))
 })
-
-// app.get('/cookie/get', (req, res) => {
-//     console.log(req.cookies)
-//     res.send(JSON.stringify(req.cookies))
-// })
-//
-// app.get('/cookie/set', (req, res) => {
-//     const {newsCount} = req.body
-//     res.cookie('count', newsCount)
-//     res.redirect('/cookie/get')
-// })
 
 
 app.listen(4000, () => {

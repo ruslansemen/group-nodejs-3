@@ -1,0 +1,73 @@
+.cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.cont > #form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+.cont > #form > label {
+  font-size: 1.6rem;
+}
+
+.cont > #form > input {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 50px;
+  outline: none;
+}
+
+.course {
+  text-decoration: none;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.img {
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid rgba(128, 128, 128, 0.637);
+  margin: 5px 0;
+}
+
+.img:hover {
+  background-color: rgba(255, 136, 0, 0.76);
+}
+
+.img:active {
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+
+.img > img {
+  background-color: grey;
+  border-radius: 50%;
+  margin: 0 20px;
+  width: 80px;
+  height: 80px;
+}
+
+.img > p {
+  color: black;
+  font-size: 1.5rem;
+}
+/*# sourceMappingURL=main.css.map */

@@ -1,11 +1,45 @@
-const index = require('express')
+const path = require('path')
+const express = require('express')
+const hbs = require('express-handlebars')
+const cookieParser = require('cookie-parser')
 
-const app = index()
+const userController = require('./controllers/usersController')
+const newsController = require('./controllers/newsController')
+
+const app = express()
+
+app.use(express.json())
+app.use(
+  express.urlencoded({
+    extended: false,
+  })
+)
+app.use(express.static('public'))
+app.use(cookieParser())
+
+app.engine(
+  'hbs',
+  hbs({
+    extname: 'hbs',
+    defaultLayout: 'default',
+    layoutsDir: path.resolve(__dirname, 'views', 'layouts'),
+    partialsDir: path.resolve(__dirname, 'views', 'partials'),
+  })
+)
+
+app.set('view engine', 'hbs')
 
 app.get('/', (req, res) => {
-  res.send('hello world. index')
+  res.render('home')
 })
 
-app.listen(4000, () => {
-  console.log('https://loacalhost:4000')
+app.use('/users', userController)
+app.use('/news', newsController)
+
+app.use((req, res) => {
+  res.status(404).render('error')
+})
+
+app.listen(3000, () => {
+  console.log('http://localhost:3000')
 })

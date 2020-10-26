@@ -1,7 +1,8 @@
 <div>
-    <h2>Config</h2>
-    <form method="POST" action="/config">
-    <input type="text" name="param1" placeholder="Введите данные для параметра 1">
-    <input type="submit" value="Отправить">
+    <h2>{{mediaName}}</h2>
+    <form method="POST" action={{url}}>
+        <label for="newsCount">Количество отображаемых новостей</label>
+        <input id='newsCount' type="text" name="newsCount" value={{newsCount}} placeholder="Количество отображаемых новостей">
+        <input type="submit" value="Отправить">
     </form>
 </div>
